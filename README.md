@@ -4,16 +4,17 @@
 
 Android cash-collection and handover app with a racing dashboard and a backend evaluation implementation.
 
-### Downloads
+### Download files
 
-Open [Releases](https://github.com/rajtraderoom-dev/RACING-CAR/releases) and expand **Assets**:
+- [Download Android APK — 81 MB](https://raw.githubusercontent.com/rajtraderoom-dev/RACING-CAR/main/downloads/Racing-Speed-debug.apk)
+- [Download complete local testing package — 28 MB](https://raw.githubusercontent.com/rajtraderoom-dev/RACING-CAR/main/downloads/Racing-Speed-local-test.zip)
+- [Quick-start instructions](downloads/START-HERE.md)
+- [SHA-256 checksums](downloads/SHA256SUMS.txt)
+- [Logo](downloads/Racing-Speed-logo.png)
 
-- **Racing-Speed-debug.apk** — installable Android test app (Android 11+).
-- **Racing-Speed-local-test.zip** — APK plus Android/backend source, database migrations, OpenAPI specification, logo assets, automated tests and setup instructions.
-- **START-HERE.md** — quick start.
-- **SHA256SUMS.txt** — checksums.
+You can also browse the [downloads folder](downloads). If GitHub displays a file preview, select **Download raw file**.
 
-The source project is inside the ZIP under `Racing-Speed/`. Read its `README.md` to start the local HTTPS backend and enroll test users/devices. The debug app's **Preview Race Control** shows clearly marked sample data without a server.
+The source project is inside the ZIP under `Racing-Speed/`. Read its `README.md` to start the local HTTPS backend and enroll test users/devices. The debug APK requires Android 11+. Its **Preview Race Control** shows clearly marked sample data without a server.
 
 ### Validation and limits
 
