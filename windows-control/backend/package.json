@@ -1,0 +1,42 @@
+{
+  "name": "racing-speed-control-backend",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc && node build-panel.mjs",
+    "start": "node dist/main.js",
+    "dev": "tsx src/main.ts",
+    "migrate": "tsx src/admin.ts migrate",
+    "provision": "tsx src/admin.ts provision",
+    "test": "tsx --test test/*.test.ts",
+    "build:api": "tsc"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1167.0",
+    "@nestjs/common": "^11.1.0",
+    "@nestjs/core": "^11.1.0",
+    "@nestjs/platform-express": "^11.1.0",
+    "@simplewebauthn/browser": "^14.0.0",
+    "@simplewebauthn/server": "^14.1.0",
+    "argon2": "^0.44.0",
+    "dotenv": "^17.2.0",
+    "express": "^5.3.0",
+    "google-auth-library": "^11.3.4",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@levischuck/tiny-cbor": "^0.3.6",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^22.0.0",
+    "@types/pg": "^8.15.0",
+    "esbuild": "^0.28.2",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  }
+}

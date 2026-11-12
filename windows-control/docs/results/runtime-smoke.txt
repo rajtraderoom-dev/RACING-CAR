@@ -1,0 +1,1 @@
+PASS: separate fresh PostgreSQL database initialized with schema 4; runtime role NOSUPERUSER NOBYPASSRLS; database/API/gateway started; non-root user can read migrations and public assets; TLS 1.3 with CA verification serves control HTML/JS; setup pending; unauthenticated control/database returns 401.

@@ -1,0 +1,9 @@
+.env
+.setup-code.txt
+runtime/
+backups/
+**/node_modules/
+**/dist/
+**/public/
+*.dump
+*.key

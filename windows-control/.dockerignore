@@ -1,0 +1,10 @@
+**/node_modules
+**/dist
+**/public
+**/.env
+**/.env.*
+.git
+backups
+runtime
+.setup-code.txt
+*.zip

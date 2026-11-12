@@ -1,0 +1,69 @@
+name: racing-speed-control
+services:
+  db:
+    image: postgres:17-alpine
+    command: ["postgres", "-c", "log_statement=none", "-c", "log_min_error_statement=panic", "-c", "log_error_verbosity=terse", "-c", "log_parameter_max_length_on_error=0"]
+    environment:
+      POSTGRES_DB: racing_speed_control
+      POSTGRES_USER: migration_owner
+      POSTGRES_PASSWORD: ${DB_OWNER_PASSWORD:?Run Setup-Windows.cmd first}
+    volumes:
+      - control_database:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        ["CMD-SHELL", "pg_isready -U migration_owner -d racing_speed_control"]
+      interval: 3s
+      timeout: 3s
+      retries: 25
+    restart: unless-stopped
+  init:
+    image: racing-speed-control:local
+    environment:
+      DATABASE_URL: postgres://migration_owner:${DB_OWNER_PASSWORD}@db:5432/racing_speed_control
+      DB_RUNTIME_PASSWORD: ${DB_APP_PASSWORD}
+    command: ["node", "dist/setup-db.js"]
+    depends_on:
+      db: { condition: service_healthy }
+    profiles: ["setup"]
+  api:
+    image: racing-speed-control:local
+    build: .
+    environment:
+      NODE_ENV: development
+      LOCAL_CONTROL_PANEL: "true"
+      ALLOW_UNATTESTED_DEV: "true"
+      WEB_ORIGIN: https://localhost:8443
+      DATABASE_URL: postgres://racing_api:${DB_APP_PASSWORD}@db:5432/racing_speed_control
+      JWT_SECRET: ${JWT_SECRET}
+      BOOTSTRAP_TOKEN_HASH: ${BOOTSTRAP_TOKEN_HASH}
+      NO_PROXY: localhost,127.0.0.1,api,db
+      no_proxy: localhost,127.0.0.1,api,db
+    depends_on:
+      db: { condition: service_healthy }
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/v1/web/status').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 5s
+      timeout: 4s
+      retries: 20
+    restart: unless-stopped
+  gateway:
+    image: caddy:2-alpine
+    ports: ["127.0.0.1:8443:443"]
+    environment:
+      NO_PROXY: localhost,127.0.0.1,api,db
+      no_proxy: localhost,127.0.0.1,api,db
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - local_tls:/data
+    depends_on:
+      api: { condition: service_healthy }
+    restart: unless-stopped
+volumes:
+  control_database:
+  local_tls:

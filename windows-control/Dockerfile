@@ -1,0 +1,12 @@
+# syntax=docker/dockerfile:1
+FROM node:22-alpine
+WORKDIR /app/backend
+COPY backend/ ./
+COPY control-panel/ /app/control-panel/
+RUN --mount=type=secret,id=proxy_ca \
+    if [ -f /run/secrets/proxy_ca ]; then export NODE_EXTRA_CA_CERTS=/run/secrets/proxy_ca; fi; \
+    npm ci --no-audit --no-fund && npm run build && npm prune --omit=dev && npm cache clean --force && chmod -R a+rX /app/backend /app/control-panel
+ENV NODE_ENV=development
+USER node
+EXPOSE 3000
+CMD ["node","dist/main.js"]

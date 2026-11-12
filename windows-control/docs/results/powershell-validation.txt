@@ -1,0 +1,1 @@
+PASS: all Windows PowerShell scripts parse; Docker wrapper forwards compose/profile/native CLI arguments without loss.

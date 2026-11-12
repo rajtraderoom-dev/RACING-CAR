@@ -1,0 +1,12 @@
+BEGIN;
+ALTER TABLE departments ADD COLUMN active boolean NOT NULL DEFAULT true;
+ALTER TABLE devices ADD COLUMN kind text NOT NULL DEFAULT 'ANDROID' CHECK(kind IN ('ANDROID','WEB'));
+ALTER TABLE devices ADD COLUMN label text NOT NULL DEFAULT 'Enrolled device';
+ALTER TABLE devices ADD COLUMN webauthn jsonb;
+ALTER TABLE devices ADD CONSTRAINT web_credential_required CHECK((kind='WEB')=(webauthn IS NOT NULL));
+CREATE UNIQUE INDEX unique_web_credential ON devices((webauthn->>'id')) WHERE kind='WEB';
+CREATE TABLE web_registrations(id uuid PRIMARY KEY,challenge text NOT NULL,data jsonb NOT NULL,expires_at timestamptz NOT NULL DEFAULT now()+interval '5 minutes',used boolean NOT NULL DEFAULT false);
+CREATE TABLE web_invitations(id uuid PRIMARY KEY,user_id uuid NOT NULL REFERENCES users(id),issued_by uuid NOT NULL REFERENCES users(id),token_hash text NOT NULL UNIQUE,expires_at timestamptz NOT NULL DEFAULT now()+interval '1 day',attempts int NOT NULL DEFAULT 0,used boolean NOT NULL DEFAULT false);
+CREATE UNIQUE INDEX users_email_casefold ON users(lower(email));
+INSERT INTO schema_migrations VALUES(4);
+COMMIT;

@@ -1,0 +1,21 @@
+RACING SPEED - SEPARATE WINDOWS BACKEND, DATABASE AND ADMIN PANEL
+
+1. Install Docker Desktop for Windows. Enable WSL 2 / Linux containers and start Docker Desktop.
+2. Extract ALL files from this ZIP to one folder on your Windows computer.
+3. Double-click Setup-Windows.cmd.
+4. Inspect the local HTTPS certificate fingerprint. Type TRUST when ready.
+5. The setup window prints a ONE-TIME SETUP CODE and opens:
+   https://localhost:8443/control/
+6. Enter that setup code, your name/email, choose your own 6-12 digit APP PIN, and enroll Windows Hello/passkey.
+7. Sign in. Create departments and users, enroll Android devices, and use the control panel.
+
+Next time: double-click Start-Backend.cmd.
+Stop services: Stop-Backend.cmd. Records are retained.
+Backup: Backup-Database.cmd. Full instructions: README.md.
+Lost all admin access: Recover-Admin-Access.cmd (local Docker owner only; audited).
+
+There is NO default username/password or preloaded financial data.
+The Windows Hello PIN and Racing Speed APP PIN are separate checks.
+This is a LOCAL TEST build. Use test cash only. Native Windows/Hello/Android acceptance and independent security review remain required before real cash.
+
+Never upload the generated .env, .setup-code.txt, runtime folder or backups to GitHub.

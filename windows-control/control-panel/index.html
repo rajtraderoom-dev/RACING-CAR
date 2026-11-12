@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Racing Speed — Local Control</title>
+    <link rel="icon" href="./logo.png" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <main class="startup">
+        <img src="./logo.png" alt="Racing Speed" />
+        <h1>RACING SPEED</h1>
+        <p>Connecting to your local control center…</p>
+      </main>
+    </div>
+    <dialog id="dialog" aria-labelledby="dialog-title"></dialog>
+    <dialog id="secure" aria-labelledby="secure-title"></dialog>
+    <div id="notifications" role="status" aria-live="polite"></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
